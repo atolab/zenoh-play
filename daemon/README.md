@@ -7,7 +7,7 @@ NOTE: the following steps have been tested on Ubuntu 20.04 64 bits
 $ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 $ cargo install cargo-deb
 
-## 1. Clone and build zenoh and zenoh-plugin-storages 
+## 1. Clone and build zenoh and zenoh-plugin-storages
 
 $ cd
 $ git clone https://github.com/eclipse-zenoh/zenoh
@@ -49,3 +49,25 @@ $ cd zenoh-python
 $ apt install python3-pip python3-launchpadlib
 $ pip3 install -r requirements-dev.txt
 $ python3 setup.py develop
+
+## 6. Clone and build Zenoh-Flow runtime example
+
+$ cd
+$ git clone https://github.com/atolab/zenoh-flow-examples
+$ cd zenoh-flow-examples
+$ cargo build --release -p runtime
+
+## 7. Clone and build zenoh-flow-python, and python wrappers
+
+$ cd
+$ git clone https://github.com/atolab/zenoh-flow-python/
+$ cd zenoh-flow-python/zenoh-flow-python
+$ pip3 install -r requirements-dev.txt
+$ python3 setup.py bdist_wheel
+$ pip3 install dist/eclipse_zenoh_flow-0.1.0-cp36-abi3-linux_x86_64.whl
+$ cd ..
+$ cargo build --release -p py-op -p py-sink
+
+## 8. Run it!
+
+*TODO*
