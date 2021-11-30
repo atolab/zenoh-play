@@ -66,7 +66,7 @@ $ pip3 install -r requirements-dev.txt
 $ python3 setup.py bdist_wheel
 $ pip3 install dist/eclipse_zenoh_flow-0.1.0-cp36-abi3-linux_x86_64.whl
 $ cd ..
-$ cargo build --release -p py-op -p py-sink
+$ cargo build --release -p py-op -p py-sink -p py-source
 
 ## 8. Run Zenoh Flow
 
