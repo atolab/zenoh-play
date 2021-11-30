@@ -19,7 +19,7 @@ from zenoh import Zenoh, Value
 class ActionSinkState:
     def __init__(self, configuration):
         self.key_expr = '/daemon/action'
-        if configuration['key-expr'] is not None:
+        if configuration.get('key-expr') is not None:
              self.key_expr = configuration['key-expr']
 
         conf = {
@@ -42,7 +42,7 @@ class ActionSink(Sink):
     def run(self, _ctx, state, data):
         action = data.data.decode("utf-8")
         print(f'Action received {action}')
-        state.workspace.put(state.key_expr, action)
+        state.ws.put(state.key_expr, action)
 
 def register():
     return ActionSink

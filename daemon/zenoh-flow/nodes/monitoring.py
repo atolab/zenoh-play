@@ -19,7 +19,7 @@ from zenoh import Zenoh, Value
 class MonitoringSinkState:
     def __init__(self, configuration):
         self.key_expr = '/daemon/monitoring'
-        if configuration['key-expr'] is not None:
+        if configuration/get('key-expr') is not None:
              self.key_expr = configuration['key-expr']
 
         conf = {
@@ -42,7 +42,7 @@ class MonitoringSink(Sink):
     def run(self, _ctx, state, data):
         monitoring = value = struct.unpack('f', data.data)
         print(f'Monitoring received {monitoring}')
-        state.workspace.put(state.key_expr, monitoring)
+        state.ws.put(state.key_expr, monitoring)
 
 def register():
     return MonitoringSink

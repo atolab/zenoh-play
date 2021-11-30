@@ -30,7 +30,7 @@ def zlistener(change):
 class ZSourceState:
     def __init__(self, configuration):
         self.key_expr = '/daemon/sensor/*'
-        if configuration['key-expr'] is not None:
+        if configuration.get('key-expr') is not None:
              self.key_expr = configuration['key-expr']
 
         conf = {
@@ -38,13 +38,13 @@ class ZSourceState:
         }
         self.zenoh = Zenoh(conf)
         self.ws = self.zenoh.workspace()
-        self.sub = self.workspace.subscribe(self.key_expr, listener)
+        self.sub = self.ws.subscribe(self.key_expr, zlistener)
 
     def close(self):
         self.sub.close()
         self.zenoh.close()
 
-def ZSource(Source):
+class ZSource(Source):
     def initialize(self, configuration):
         return ZSourceState(configuration)
 
@@ -60,8 +60,6 @@ def ZSource(Source):
 
         ba = bytearray(struct.pack("f", value))
         return ba
-
-
 
 def register():
     return ZSource
