@@ -68,6 +68,7 @@ $ pip3 install dist/eclipse_zenoh_flow-0.1.0-cp36-abi3-linux_x86_64.whl
 $ cd ..
 $ cargo build --release -p py-op -p py-sink
 
-## 8. Run it!
+## 8. Run Zenoh Flow
 
-*TODO*
+$ cd
+$ ~/zenoh-flow-examples/target/release/runtime -r daemon -g ~/zenoh-play/daemon/zenoh-flow/dataflow.yml -l ~/zenoh-play/daemon/zenoh-flow/loader-config.yml
