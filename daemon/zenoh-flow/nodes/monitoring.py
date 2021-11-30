@@ -15,11 +15,12 @@
 from zenoh_flow import Sink
 import zenoh
 from zenoh import Zenoh, Value
+import struct
 
 class MonitoringSinkState:
-    def __init__(self, configuration):
+    def __init__(self, configuration={}):
         self.key_expr = '/daemon/monitoring'
-        if configuration['key-expr'] is not None:
+        if configuration is not None and configuration/get('key-expr') is not None:
              self.key_expr = configuration['key-expr']
 
         conf = {
@@ -40,9 +41,9 @@ class MonitoringSink(Sink):
         return None
 
     def run(self, _ctx, state, data):
-        monitoring = value = struct.unpack('f', data.data)
+        monitoring = value = struct.unpack('f', data.data)[0]
         print(f'Monitoring received {monitoring}')
-        state.workspace.put(state.key_expr, monitoring)
+        state.ws.put(state.key_expr, monitoring)
 
 def register():
     return MonitoringSink

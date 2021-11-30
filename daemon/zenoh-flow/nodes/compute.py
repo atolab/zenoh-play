@@ -32,14 +32,14 @@ class ComputeOp(Operator):
         # Getting the inputs
         data = inputs.get('Value').data
 
-        value = struct.unpack('f', data)
+        value = struct.unpack('f', data)[0]
 
         outputs = {}
 
         if (value % 1) > 0.5:
-            outputs['action'] = b'trigger'
+            outputs['Action'] = b'trigger'
 
-        outputs['monitoring'] = data
+        outputs['Value'] = data
         return outputs
 
 
