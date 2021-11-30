@@ -28,9 +28,9 @@ def zlistener(change):
     has_value = True
 
 class ZSourceState:
-    def __init__(self, configuration):
+    def __init__(self, configuration={}):
         self.key_expr = '/daemon/sensor/*'
-        if configuration.get('key-expr') is not None:
+        if configuration is not None and configuration.get('key-expr') is not None:
              self.key_expr = configuration['key-expr']
 
         conf = {
@@ -57,8 +57,9 @@ class ZSource(Source):
         global value, has_value
         while (has_value == False):
             pass
-
+        has_value = False
         ba = bytearray(struct.pack("f", value))
+
         return ba
 
 def register():
