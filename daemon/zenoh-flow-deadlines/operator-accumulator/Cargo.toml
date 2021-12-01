@@ -1,0 +1,13 @@
+[package]
+name = "operator-accumulator"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+async-std = { version = "=1.9.0", features = ["attributes","unstable"] }
+rand = "0.8.4"
+shared-types = { path = "../shared-types" }
+zenoh-flow = { git = "https://github.com/atolab/zenoh-flow.git", branch = "fix/end-to-end-deadline" }
+
+[lib]
+crate-type=["cdylib"]

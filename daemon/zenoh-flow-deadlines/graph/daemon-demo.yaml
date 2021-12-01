@@ -1,0 +1,184 @@
+flow: DaemonDemonstration
+
+
+sources:
+  - id: Source-RandomInteger
+    uri: file://../zenoh-play/daemon/zenoh-flow-deadlines/target/release/libsource_random_integer.dylib
+    output:
+      id: Out
+      type: usize
+
+
+operators:
+  - id: Operator-Plus1
+    uri: file://../zenoh-play/daemon/zenoh-flow-deadlines/target/release/liboperator_plus_one.dylib
+    inputs:
+      - id: In
+        type: usize
+    outputs:
+      - id: Out
+        type: usize
+
+  - id: Operator-Times2
+    uri: file://../zenoh-play/daemon/zenoh-flow-deadlines/target/release/liboperator_times_two.dylib
+    inputs:
+      - id: In
+        type: usize
+    outputs:
+      - id: Out
+        type: usize
+
+  - id: Operator-Minus1
+    uri: file://../zenoh-play/daemon/zenoh-flow-deadlines/target/release/liboperator_minus_one.dylib
+    inputs:
+      - id: In
+        type: usize
+    outputs:
+      - id: Out
+        type: usize
+
+  - id: Operator-Accumulator
+    uri: file://../zenoh-play/daemon/zenoh-flow-deadlines/target/release/liboperator_accumulator.dylib
+    inputs:
+      - id: In
+        type: usize
+    outputs:
+      - id: Out
+        type: usize
+
+  - id: Operator-Selection
+    uri: file://../zenoh-play/daemon/zenoh-flow-deadlines/target/release/liboperator_selection.dylib
+    inputs:
+      - id: In-Plus1
+        type: usize
+      - id: In-Times2
+        type: usize
+      - id: In-Minus1
+        type: usize
+      - id: In-Accumulator
+        type: usize
+    outputs:
+      - id: Out
+        type: usize
+
+
+sinks:
+  - id: Sink-Display
+    uri: file://../zenoh-play/daemon/zenoh-flow-deadlines/target/release/libsink_display.dylib
+    input:
+      id: In
+      type: usize
+
+
+links:
+  - from:
+      node: Source-RandomInteger
+      output: Out
+    to:
+      node: Operator-Plus1
+      input: In
+
+  - from:
+      node: Source-RandomInteger
+      output: Out
+    to:
+      node: Operator-Times2
+      input: In
+
+  - from:
+      node: Source-RandomInteger
+      output: Out
+    to:
+      node: Operator-Minus1
+      input: In
+
+  - from:
+      node: Source-RandomInteger
+      output: Out
+    to:
+      node: Operator-Accumulator
+      input: In
+
+  - from:
+      node: Operator-Plus1
+      output: Out
+    to:
+      node: Operator-Selection
+      input: In-Plus1
+
+  - from:
+      node: Operator-Times2
+      output: Out
+    to:
+      node: Operator-Selection
+      input: In-Times2
+
+  - from:
+      node: Operator-Minus1
+      output: Out
+    to:
+      node: Operator-Selection
+      input: In-Minus1
+
+  - from:
+      node: Operator-Accumulator
+      output: Out
+    to:
+      node: Operator-Selection
+      input: In-Accumulator
+
+  - from:
+      node: Operator-Selection
+      output: Out
+    to:
+      node: Sink-Display
+      input: In
+
+
+deadlines:
+  - from:
+      node: Source-RandomInteger
+      output: Out
+    to:
+      node: Operator-Selection
+      input: In-Plus1
+    duration:
+      length: 50
+      unit: ms
+
+  - from:
+      node: Source-RandomInteger
+      output: Out
+    to:
+      node: Operator-Selection
+      input: In-Times2
+    duration:
+      length: 100
+      unit: ms
+
+  - from:
+      node: Source-RandomInteger
+      output: Out
+    to:
+      node: Operator-Selection
+      input: In-Minus1
+    duration:
+      length: 75
+      unit: ms
+
+
+mapping:
+  - id: Source-RandomInteger
+    runtime: runtime-source
+  - id: Operator-Accumulator
+    runtime: runtime-accumulator
+  - id: Operator-Plus1
+    runtime: runtime-plus-one
+  - id: Operator-Times2
+    runtime: runtime-times-two
+  - id: Operator-Minus1
+    runtime: runtime-minus-one
+  - id: Operator-Selection
+    runtime: runtime-sink
+  - id: Sink-Display
+    runtime: runtime-sink
