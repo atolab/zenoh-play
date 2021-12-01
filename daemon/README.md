@@ -47,8 +47,14 @@ cargo deb
 apt install ./target/debian/*.deb
 ```
 
-## 4. Start zenohd and configure the storages
+## 4. Start zenohd and configure the influxdb storages
 
+In a first terminal:
+```sh
+RUST_LOG=debug zenohd
+```
+
+In a second terminal:
 ```sh
 curl -X PUT -H 'content-type:application/properties' -d "url=http:// localhost:8086" http://localhost:8000/@/router/local/plugin/storages/backend/influxdb
 curl -X PUT -H 'content-type:application/properties' -d "path_expr=/daemon/**;db=daemon;create_db" http://localhost:8000/@/router/local/plugin/storages/backend/influxdb/storage/daemon
@@ -65,7 +71,42 @@ pip3 install -r requirements-dev.txt
 python3 setup.py develop
 ```
 
-## 6. Clone and build Zenoh-Flow runtime example
+## 6. Run the pub-sub
+
+Start a first publisher that push data every second.
+In a first terminal:
+```sh
+cd
+cd zenoh-play/daemon/src
+python3 z_sensor.py -i 1
+```
+
+Start a second publisher that push data every two seconds.
+In a second terminal:
+```sh
+cd
+cd zenoh-play/daemon/src
+python3 z_sensor.py -i 2
+```
+
+Start a subscriber to receive all data being published.
+In a third terminal:
+```sh
+cd
+cd zenoh-python/examples/zenoh
+python3 z_sub.py -s '/daemon/**'
+```
+
+## 7. Retrive historical data
+
+In a terminal, retrive the last minute data.
+```sh
+cd
+cd zenoh-python/examples/zenoh
+python3 z_get.py -s '/daemon/action?(starttime=now()-1m;stoptime=now())'
+```
+
+## 8. Clone and build Zenoh-Flow runtime example
 
 ```sh
 cd
@@ -74,7 +115,7 @@ cd zenoh-flow-examples
 cargo build --release -p runtime
 ```
 
-## 7. Clone and build zenoh-flow-python, and python wrappers
+## 9. Clone and build zenoh-flow-python, and python wrappers
 
 ```sh
 cd
@@ -87,7 +128,7 @@ cd ..
 cargo build --release -p py-op -p py-sink -p py-source
 ```
 
-## 8. Run Zenoh Flow
+## 10. Run Zenoh Flow
 
 ```sh
 cd
