@@ -1,6 +1,11 @@
-# Influxdb playground
+# Daemon playground
 
-NOTE: the following steps have been tested on Ubuntu 20.04 64 bits
+This playground shows the step-by-step process of how zenoh pubs/subs, storages, and zenoh-flows can be independently added to a live zenoh system.
+The main goal is to shows how zenoh and zenoh-flow can be used to support [H2020 DAEMON framework](https://h2020daemon.eu/), especially how InfluxDB backend can be used for storing real-time freshly published data and to provide historic data for off-line processing e.g. for machine learning.
+
+Few slides showing the zenoh scenario of the playground below are available [here](https://drive.google.com/file/d/14xVkE4Q5_moI3Ps7GMbT1UamH-7w8Gy5/view?usp=sharing).
+
+NOTE: the following steps have been tested on Ubuntu 20.04 64 bits.
 
 ## 0. Install Rust ecosystem
 ```sh
