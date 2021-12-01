@@ -104,7 +104,7 @@ In a terminal, retrive the last minute data.
 ```sh
 cd
 cd zenoh-python/examples/zenoh
-python3 z_get.py -s '/daemon/action?(starttime=now()-1m;stoptime=now())'
+python3 z_get.py -s '/daemon/**?(starttime=now()-1m;stoptime=now())'
 ```
 
 ## 8. Clone and build Zenoh-Flow runtime example
