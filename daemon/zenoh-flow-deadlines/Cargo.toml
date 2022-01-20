@@ -1,0 +1,12 @@
+[workspace]
+
+members = [
+        "source-random-integer",
+        "operator-plus-one",
+        "operator-accumulator",
+        "operator-times-two",
+        "operator-minus-one",
+        "operator-selection",
+        "sink-display",
+        "shared-types",
+]
