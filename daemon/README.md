@@ -29,7 +29,7 @@ On Ubuntu you can also generate and install the deb files:
 cargo deb -p zenoh
 cargo deb -p zenoh-plugin-storages
 cargo deb -p zenoh-plugin-rest
-apt install ./target/debian/*.deb
+sudo apt install ./target/debian/*.deb
 ```
 
 ## 2. Install influxdb
@@ -41,16 +41,17 @@ sudo apt install influxdb
 ## 3. Clone and build the influxdb backend
 
 ```sh
+cd
 git clone https://github.com/eclipse-zenoh/zenoh-backend-influxdb
 cd zenoh-backend-influxdb
-cargo build --release
+cargo build --release --all-targets
 ```
 
 On Ubuntu you can also generate and install the deb files:
 
 ```sh
 cargo deb
-apt install ./target/debian/*.deb
+sudo apt install ./target/debian/*.deb
 ```
 
 ## 4. Start zenohd and configure the influxdb storages
@@ -73,7 +74,7 @@ bash zenoh-config.sh
 cd
 git clone https://github.com/eclipse-zenoh/zenoh-python
 cd zenoh-python
-apt install python3-pip python3-launchpadlib
+sudo apt install python3-pip python3-launchpadlib
 pip3 install -r requirements-dev.txt
 python3 setup.py develop
 ```
