@@ -14,7 +14,7 @@
 
 from zenoh_flow import Inputs, Outputs, Source
 import zenoh
-from zenoh import Zenoh
+from zenoh import config
 import struct
 
 value = 0
@@ -34,12 +34,11 @@ class ZSourceState:
         if configuration is not None and configuration.get('key-expr') is not None:
             self.key_expr = configuration['key-expr']
 
-        conf = {
+        conf = zenoh.Config({
             'mode': 'peer'
-        }
-        self.zenoh = Zenoh(conf)
-        self.ws = self.zenoh.workspace()
-        self.sub = self.ws.subscribe(self.key_expr, zlistener)
+        })
+        self.zenoh = zenoh.open(conf)
+        self.sub = self.zenoh.subscribe(self.key_expr, zlistener)
 
     def close(self):
         self.sub.close()

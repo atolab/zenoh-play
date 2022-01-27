@@ -1,7 +1,7 @@
 flow: DaemonApplication
 operators:
   - id: Compute
-    uri: file:///root/zenoh-play/daemon/zenoh-flow/nodes/compute.py
+    uri: file:///home/luca/zenoh-play/daemon/zenoh-flow/nodes/compute.py
     inputs:
       - id: Value
         type: float
@@ -12,18 +12,18 @@ operators:
         type: float
 sources:
   - id : Sensor
-    uri: file:///root/zenoh-play/daemon/zenoh-flow/nodes/zsource.py
+    uri: file:///home/luca/zenoh-play/daemon/zenoh-flow/nodes/zsource.py
     output:
         id: Data
         type: float
 sinks:
   - id : Action
-    uri: file:///root/zenoh-play/daemon/zenoh-flow/nodes/action.py
+    uri: file:///home/luca/zenoh-play/daemon/zenoh-flow/nodes/action.py
     input:
         id: Do
         type: action
   - id : Monitoring
-    uri: file:///root/zenoh-play/daemon/zenoh-flow/nodes/monitoring.py
+    uri: file:///home/luca/zenoh-play/daemon/zenoh-flow/nodes/monitoring.py
     input:
         id: Value
         type: float
