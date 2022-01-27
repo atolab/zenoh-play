@@ -74,9 +74,9 @@ bash zenoh-config.sh
 cd
 git clone https://github.com/eclipse-zenoh/zenoh-python
 cd zenoh-python
-sudo apt install python3-pip python3-launchpadlib
+sudo apt install python3-pip python3-launchpadlib python3-testresources
 pip3 install -r requirements-dev.txt
-python3 setup.py develop
+suduo python3 setup.py develop
 ```
 
 ## 6. Run the pub-sub
