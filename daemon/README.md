@@ -10,6 +10,7 @@ NOTE: the following steps have been tested on Ubuntu 20.04 64 bits.
 ## 0. Install Rust ecosystem
 ```sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
 cargo install cargo-deb
 ```
 
