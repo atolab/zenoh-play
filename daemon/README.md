@@ -58,7 +58,7 @@ sudo apt install ./target/debian/*.deb
 
 In a first terminal:
 ```sh
-RUST_LOG=debug zenohd c ~/zenoh-play/daemon/zenoh.json
+RUST_LOG=debug zenohd -c ~/zenoh-play/daemon/zenoh.json
 ```
 
 In a second terminal:
