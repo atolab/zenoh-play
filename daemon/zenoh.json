@@ -1,0 +1,19 @@
+{
+    "plugins_search_dirs":["/usr/lib/"],
+    "plugins":{
+        "storages":{
+        "required":true,
+        "backends":{
+            "influxdb":{
+                "url":"http://localhost:8086",
+                "db":"daemon-data",
+                "storages":{
+                    "replay":{
+                        "key_expr":"/paris/**"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

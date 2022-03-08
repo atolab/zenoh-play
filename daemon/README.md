@@ -20,13 +20,13 @@ cargo install cargo-deb
 cd
 git clone https://github.com/eclipse-zenoh/zenoh
 cd zenoh
-cargo build --release -p zenoh -p zenoh-plugin-storages -p zenoh-plugin-rest
+cargo build --release -p zenohd -p zenoh-plugin-storages -p zenoh-plugin-rest
 ```
 
 On Ubuntu you can also generate and install the deb files:
 
 ```sh
-cargo deb -p zenoh
+cargo deb -p zenohd
 cargo deb -p zenoh-plugin-storages
 cargo deb -p zenoh-plugin-rest
 sudo apt install ./target/debian/*.deb
@@ -58,7 +58,7 @@ sudo apt install ./target/debian/*.deb
 
 In a first terminal:
 ```sh
-RUST_LOG=debug zenohd
+RUST_LOG=debug zenohd c ~/zenoh-play/daemon/zenoh.json
 ```
 
 In a second terminal:
@@ -76,7 +76,8 @@ git clone https://github.com/eclipse-zenoh/zenoh-python
 cd zenoh-python
 sudo apt install python3-pip python3-launchpadlib python3-testresources
 pip3 install -r requirements-dev.txt
-suduo python3 setup.py develop
+python3 setup.py bdist_wheel
+pip3 install dist/*.whl
 ```
 
 ## 6. Run the pub-sub
@@ -86,7 +87,7 @@ In a first terminal:
 ```sh
 cd
 cd zenoh-play/daemon/src
-python3 z_sensor.py -i 1 -k /paris/1/gnb/p1-23/ss-rsrp
+python3 z_sensor.py -v 1 -k /paris/1/gnb/p1-23/ss-rsrp
 ```
 
 Start a second publisher that push data every two seconds.
@@ -94,7 +95,7 @@ In a second terminal:
 ```sh
 cd
 cd zenoh-play/daemon/src
-python3 z_sensor.py -i 2 -k /paris/14/gnb/p14-2/ss-rsrp
+python3 z_sensor.py -v 2 -k /paris/14/gnb/p14-2/ss-rsrp
 ```
 
 Start a subscriber to receive all data being published.
@@ -102,7 +103,7 @@ In a third terminal:
 ```sh
 cd
 cd zenoh-python/examples/zenoh
-python3 z_sub.py -s '/paris/*/gnb/*/ss-rsrp'
+python3 z_sub.py -k '/paris/*/gnb/*/ss-rsrp'
 ```
 
 ## 7. Retrive historical data

@@ -75,7 +75,7 @@ def main():
                         type=str,
                         help='The key expression to publish onto.')
     parser.add_argument('--value', '-v', dest='value',
-                        default='Pub from Python!',
+                        default=1,
                         type=str,
                         help='The value to publish.')
     parser.add_argument("--iter", dest="iter", type=int,
@@ -117,7 +117,7 @@ def main():
         for x in range(-90, 90, 1):
             x = x/10
             y = get_y(x)
-            point(x,y)
+            point = (x,y)
             dist =  distance(F1, point) if id%2 else  distance(F2, point)
             v = compute_rsrp(dist)
 
