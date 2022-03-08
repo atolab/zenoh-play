@@ -36,8 +36,8 @@ class ComputeOp(Operator):
 
         outputs = {}
 
-        if (value % 1) > 0.5:
-            outputs['Action'] = b'trigger'
+        if value < -90:
+            outputs['Action'] = b'handover'
 
         outputs['Value'] = data
         return outputs

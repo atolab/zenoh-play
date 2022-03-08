@@ -86,7 +86,7 @@ In a first terminal:
 ```sh
 cd
 cd zenoh-play/daemon/src
-python3 z_sensor.py -i 1
+python3 z_sensor.py -i 1 -k /paris/1/gnb/p1-23/ss-rsrp
 ```
 
 Start a second publisher that push data every two seconds.
@@ -94,7 +94,7 @@ In a second terminal:
 ```sh
 cd
 cd zenoh-play/daemon/src
-python3 z_sensor.py -i 2
+python3 z_sensor.py -i 2 -k /paris/14/gnb/p14-2/ss-rsrp
 ```
 
 Start a subscriber to receive all data being published.
@@ -102,7 +102,7 @@ In a third terminal:
 ```sh
 cd
 cd zenoh-python/examples/zenoh
-python3 z_sub.py -s '/daemon/**'
+python3 z_sub.py -s '/paris/*/gnb/*/ss-rsrp'
 ```
 
 ## 7. Retrive historical data
@@ -111,7 +111,7 @@ In a terminal, retrive the last minute data.
 ```sh
 cd
 cd zenoh-python/examples/zenoh
-python3 z_get.py -s '/daemon/**?(starttime=now()-1m;stoptime=now())'
+python3 z_get.py -s '/paris/*/gnb/*/ss-rsrp?(starttime=now()-1m;stoptime=now())'
 ```
 
 ## 8. Clone and build Zenoh-Flow runtime example
@@ -131,7 +131,7 @@ git clone https://github.com/atolab/zenoh-flow-python/
 cd zenoh-flow-python/zenoh-flow-python
 pip3 install -r requirements-dev.txt
 python3 setup.py bdist_wheel
-pip3 install dist/eclipse_zenoh_flow-0.1.0-cp36-abi3-linux_x86_64.whl
+pip3 install dist/eclipse_zenoh_flow-0.2.0-cp36-abi3-linux_x86_64.whl
 cd ..
 cargo build --release -p py-op -p py-sink -p py-source
 ```

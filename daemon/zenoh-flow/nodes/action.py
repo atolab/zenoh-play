@@ -19,7 +19,7 @@ from zenoh import config
 
 class ActionSinkState:
     def __init__(self, configuration={}):
-        self.key_expr = '/daemon/action'
+        self.key_expr = '/paris/ss-rsrp-alert'
         if configuration is not None and configuration.get('key-expr') is not None:
             self.key_expr = configuration['key-expr']
 
@@ -41,7 +41,7 @@ class ActionSink(Sink):
 
     def run(self, _ctx, state, data):
         action = data.data.decode("utf-8")
-        print(f'Action received {action}')
+        print(f'Alert received {action}')
         state.zenoh.put(state.key_expr, action)
 
 

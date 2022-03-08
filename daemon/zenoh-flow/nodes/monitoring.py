@@ -20,7 +20,7 @@ import struct
 
 class MonitoringSinkState:
     def __init__(self, configuration={}):
-        self.key_expr = '/daemon/monitoring'
+        self.key_expr = '/paris/ss-rsrp-monitor'
         if configuration is not None and configuration.get('key-expr') is not None:
             self.key_expr = configuration['key-expr']
 
